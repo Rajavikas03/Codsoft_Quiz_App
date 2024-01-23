@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_apk/main.dart';
+import 'package:quiz_apk/options.dart';
 import 'package:quiz_apk/quiz_page.dart';
 
 class CompeletePage extends StatelessWidget {
+  // int answeredques;
   // int correctans;
   // int Wrongans;
   const CompeletePage({
     super.key,
     //  required this.correctans
     //  required this.Wrongans
+    // required this.answeredques,
   });
 
   @override
@@ -61,7 +64,7 @@ class CompeletePage extends StatelessWidget {
             ),
             Container(
               width: 300,
-              height: 150,
+              height: 200,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
@@ -81,7 +84,7 @@ class CompeletePage extends StatelessWidget {
                           radius: 10,
                         ),
                         Text(
-                          ' Correct Answer: $correctans',
+                          ' Correct Answer: ${correctans}}',
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ],
@@ -98,6 +101,22 @@ class CompeletePage extends StatelessWidget {
                         ),
                         Text(
                           ' Wrong Answer: $Wrongans',
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const CircleAvatar(
+                          backgroundColor: Colors.green,
+                          radius: 10,
+                        ),
+                        Text(
+                          ' No.of Answered ques: ${Ans.length}',
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ],
