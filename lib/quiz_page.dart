@@ -93,7 +93,6 @@ class _quiz_mainState extends State<quiz_main> {
                           Options(
                             option: questions[index].options[i].text,
                             isCorrect: questions[index].options[i].isCorrect,
-                            isSelected: false,
                           ),
                       ],
                     ),
