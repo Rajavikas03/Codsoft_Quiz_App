@@ -24,7 +24,7 @@ class _CompeletePageState extends State<CompeletePage> {
     double ctans = Crt.length.toDouble();
     // double wrgans = Wrg.length.toDouble();
     double tolans = Ans.length.toDouble();
-    double pots = (((ctans - tolans) / tolans) * 100);
+    double pots = (((ctans) / tolans) * 100);
     return Scaffold(
         body: Stack(
       children: [

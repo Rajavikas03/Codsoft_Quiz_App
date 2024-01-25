@@ -3,6 +3,11 @@ import 'package:quiz_apk/Compelete.dart';
 import 'package:quiz_apk/model.dart';
 import 'package:quiz_apk/options.dart';
 
+bool isSelected1 = false;
+bool isSelected2 = false;
+bool isSelected3 = false;
+bool isSelected4 = false;
+
 class quiz_main extends StatefulWidget {
   const quiz_main({super.key});
 
@@ -13,6 +18,14 @@ class quiz_main extends StatefulWidget {
 class _quiz_mainState extends State<quiz_main> {
   bool t = false;
   @override
+  void initState() {
+    super.initState();
+    isSelected1 = false;
+    isSelected2 = false;
+    isSelected3 = false;
+    isSelected4 = false;
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -25,6 +38,7 @@ class _quiz_mainState extends State<quiz_main> {
               itemBuilder: (context, index) {
                 // int indexx = index;
                 final _question = questions[index];
+                var optt = questions[index].options;
                 // var  first_options = questions[0];
 
                 return Column(
@@ -51,32 +65,60 @@ class _quiz_mainState extends State<quiz_main> {
                             fontSize: 30, fontWeight: FontWeight.w500),
                       ),
                     ),
-                    Options(
-                      option: 'Option A',
-                      isCorrect: false,
-                      // selected: 1,
-                      // onChanged: 1,
-                    ),
-                    Options(
-                      option: 'Option B',
-                      isCorrect: false,
-                      // selected: 2,
-                      // onChanged: 2,
-                    ),
-                    Options(
-                      option: 'Option C',
-                      isCorrect: false,
-                      // onChanged: 3,
-                      // selected: 3,
-                    ),
-                    Options(
-                      option: 'Option D',
-                      isCorrect: true,
-                      // selected: 4,
-                      // onChanged: 4,
-                    ),
+                    // Options(
+                    //   option: 'Option A',
+                    //   isCorrect: false,
+                    // ),
+                    // Options(
+                    //   option: 'Option B',
+                    //   isCorrect: false,
+                    // ),
+                    // Options(
+                    //   option: 'Option C',
+                    //   isCorrect: false,
+                    // ),
+                    // Options(
+                    //   option: 'Option D',
+                    //   isCorrect: true,
+                    // ),
                     const SizedBox(
                       height: 100,
+                    ),
+                    // for(){
+                    // Text(questions[index].options[2].text),};
+                    Column(
+                      children: [
+                        for (int i = 0; i < questions.length; i++)
+                          // Text(questions[index].options[i].text),
+                          Options(
+                            option: questions[index].options[i].text,
+                            isCorrect: questions[index].options[i].isCorrect,
+                            isSelected: false,
+                          ),
+                      ],
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        // if ((index + 1) % questions.length == 0) {
+                        //   Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => const CompeletePage(),
+                        //     ),
+                        //   );
+                        // } else {
+                        //   print("hiiii ${questions.length}"); // check//
+                        // }
+                      },
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.deepPurple[400],
+                          backgroundColor: Colors.white,
+                          padding: const EdgeInsets.fromLTRB(40, 16, 40, 16),
+                          elevation: 6),
+                      child: const Text('  Next  '),
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -88,7 +130,7 @@ class _quiz_mainState extends State<quiz_main> {
                             ),
                           );
                         } else {
-                          print("hiiii ${questions.length}");
+                          print("hiiii ${questions.length}"); // check//
                         }
                       },
                       style: ElevatedButton.styleFrom(
