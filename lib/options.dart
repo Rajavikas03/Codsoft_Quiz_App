@@ -1,7 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 List Ans = [];
+List Crt = [];
+List Wrg = [];
 
 class Options extends StatefulWidget {
   final String option;
@@ -53,6 +54,7 @@ class _OptionsState extends State<Options> {
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Radio(
+                        activeColor: Colors.green,
                         value: widget.option.hashCode,
                         groupValue: isSelected ? widget.option.hashCode : null,
                         onChanged: (val) {
@@ -60,6 +62,16 @@ class _OptionsState extends State<Options> {
                             isSelected = !isSelected;
                             if (isSelected = true) {
                               Ans.add(isSelected);
+                              print("huu${widget.isCorrect}"); // check
+                              if (widget.isCorrect == true) {
+                                Crt.add(widget.isCorrect);
+                              } else if (widget.isCorrect == false) {
+                                Wrg.add(widget.isCorrect);
+                                print("hyy${widget.isCorrect}"); // check
+                              }
+                              // } else if (widget.isCorrect == false) {
+                              //   Wrg.add(widget.isCorrect);
+                              //   print("hyy${widget.isCorrect}");
                             }
                           });
                         }),

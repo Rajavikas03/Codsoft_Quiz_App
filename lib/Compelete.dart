@@ -3,7 +3,7 @@ import 'package:quiz_apk/main.dart';
 import 'package:quiz_apk/options.dart';
 import 'package:quiz_apk/quiz_page.dart';
 
-class CompeletePage extends StatelessWidget {
+class CompeletePage extends StatefulWidget {
   // int answeredques;
   // int correctans;
   // int Wrongans;
@@ -15,13 +15,20 @@ class CompeletePage extends StatelessWidget {
   });
 
   @override
+  State<CompeletePage> createState() => _CompeletePageState();
+}
+
+class _CompeletePageState extends State<CompeletePage> {
+  @override
   Widget build(BuildContext context) {
-    var correctans = 8;
-    var Wrongans = 2;
+    double ctans = Crt.length.toDouble();
+    // double wrgans = Wrg.length.toDouble();
+    double tolans = Ans.length.toDouble();
+    double pots = (((ctans - tolans) / tolans) * 100);
     return Scaffold(
         body: Stack(
       children: [
-        gradientcolor(),
+        const gradientcolor(),
         Column(
           children: [
             SizedBox(
@@ -31,13 +38,19 @@ class CompeletePage extends StatelessWidget {
                 children: [
                   IconButton(
                       onPressed: () {
+                        setState(() {
+                          Crt.clear();
+                          Ans.clear();
+                          Wrg.clear();
+                        });
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const MyHomePage()),
                         );
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.close,
                         color: Colors.red,
                         size: 40,
@@ -53,13 +66,14 @@ class CompeletePage extends StatelessWidget {
                   radius: 78,
                   backgroundColor: Colors.white,
                   child: Text(
-                    '100 pt',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                    '$pots pt',
+                    style: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
@@ -84,7 +98,7 @@ class CompeletePage extends StatelessWidget {
                           radius: 10,
                         ),
                         Text(
-                          ' Correct Answer: ${correctans}}',
+                          ' Correct Answer: ${Crt.length}',
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ],
@@ -96,11 +110,11 @@ class CompeletePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const CircleAvatar(
-                          backgroundColor: Colors.green,
+                          backgroundColor: Colors.red,
                           radius: 10,
                         ),
                         Text(
-                          ' Wrong Answer: $Wrongans',
+                          ' Wrong Answer: ${Wrg.length}',
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ],
@@ -112,7 +126,7 @@ class CompeletePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const CircleAvatar(
-                          backgroundColor: Colors.green,
+                          backgroundColor: Colors.yellow,
                           radius: 10,
                         ),
                         Text(
