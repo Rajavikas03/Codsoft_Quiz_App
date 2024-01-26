@@ -16,11 +16,11 @@ class quiz_main extends StatefulWidget {
 
 class _quiz_mainState extends State<quiz_main> {
   final PageController _pageController = PageController();
-  late String isSelected;
+  String isSelected = ' ';
   @override
   void initState() {
     super.initState();
-    // isSelected = ;
+    isSelected = ' ';
   }
 
   Widget build(BuildContext context) {
@@ -100,28 +100,22 @@ class _quiz_mainState extends State<quiz_main> {
                                               activeColor: Colors.green,
                                               value: questions[index]
                                                   .options[i]
-                                                  .text
-                                                  .hashCode,
-                                              groupValue:
-                                                  questions[index].options[i],
+                                                  .text,
+                                              groupValue: isSelected,
                                               onChanged: (val) {
-                                                // questions[index].options[i] = val!;
-                                                // questions[index]
-                                                //     .options[i]
-                                                //     .isLocked = true;
-                                                // setState(() {
-                                                //   print(
-                                                //       "${questions[index].options[i].isLocked}hiii");
-                                                //   questions[index]
-                                                //           .options[i]
-                                                //           .isLocked =
-                                                //       !questions[index]
-                                                //           .options[i]
-                                                //           .isLocked;
-                                                //   print(
-                                                //       '${questions[index].options[i].isLocked}bye');
-                                                // });
+                                                setState(() {
+                                                  isSelected = val.toString();
+                                                });
                                               }),
+                                          // Radio(
+                                          //   value: "Yes",
+                                          //   groupValue: isSelected,
+                                          //   onChanged: (val) {
+                                          //     setState(() {
+                                          //       isSelected = val.toString();
+                                          //     });
+                                          //   },
+                                          // ),
                                         ],
                                       )),
                                 ),

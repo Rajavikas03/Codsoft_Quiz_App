@@ -25,7 +25,7 @@ final questions = [
     text: 'what is me 1 ? ', //Q1
     options: [
       Opt(text: '1', isCorrect: false, isLocked: false),
-      Opt(text: 'hiii', isCorrect: false, isLocked: false),
+      Opt(text: 'hii', isCorrect: false, isLocked: false),
       Opt(text: 'byee', isCorrect: true, isLocked: false),
       Opt(text: 'hiii', isCorrect: false, isLocked: false),
     ],
@@ -34,7 +34,7 @@ final questions = [
     text: 'what is me 2 ? ', //Q2
     options: [
       Opt(text: '2', isCorrect: false, isLocked: false),
-      Opt(text: 'hiii', isCorrect: false, isLocked: false),
+      Opt(text: 'hii', isCorrect: false, isLocked: false),
       Opt(text: 'byee', isCorrect: true, isLocked: false),
       Opt(text: 'hiii', isCorrect: false, isLocked: false),
     ],
@@ -43,7 +43,7 @@ final questions = [
     text: 'what is me 3 ? ', //Q3
     options: [
       Opt(text: '3', isCorrect: false, isLocked: false),
-      Opt(text: 'hiii', isCorrect: false, isLocked: false),
+      Opt(text: 'hii', isCorrect: false, isLocked: false),
       Opt(text: 'byee', isCorrect: true, isLocked: false),
       Opt(text: 'hiii', isCorrect: false, isLocked: false),
     ],
@@ -52,7 +52,7 @@ final questions = [
     text: 'what is me 4 ? ', //Q4
     options: [
       Opt(text: '4', isCorrect: false, isLocked: false),
-      Opt(text: 'hiii', isCorrect: false, isLocked: false),
+      Opt(text: 'hii', isCorrect: false, isLocked: false),
       Opt(text: 'byee', isCorrect: true, isLocked: false),
       Opt(text: 'hiii', isCorrect: false, isLocked: false),
     ],
