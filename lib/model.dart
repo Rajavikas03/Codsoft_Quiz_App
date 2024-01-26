@@ -11,10 +11,12 @@ class Question {
 class Opt {
   final String text;
   final bool isCorrect;
+  bool isLocked;
 
-  const Opt({
+  Opt({
     required this.text,
     required this.isCorrect,
+    required this.isLocked,
   });
 }
 
@@ -22,48 +24,37 @@ final questions = [
   Question(
     text: 'what is me 1 ? ', //Q1
     options: [
-      const Opt(text: '1', isCorrect: false),
-      const Opt(text: 'hiii', isCorrect: false),
-      const Opt(text: 'byee', isCorrect: true),
-      const Opt(text: 'hiii', isCorrect: false),
+      Opt(text: '1', isCorrect: false, isLocked: false),
+      Opt(text: 'hiii', isCorrect: false, isLocked: false),
+      Opt(text: 'byee', isCorrect: true, isLocked: false),
+      Opt(text: 'hiii', isCorrect: false, isLocked: false),
     ],
   ),
   Question(
     text: 'what is me 2 ? ', //Q2
     options: [
-      const Opt(text: '2', isCorrect: false),
-      const Opt(text: 'hiii', isCorrect: false),
-      const Opt(text: 'byee', isCorrect: true),
-      const Opt(text: 'hiii', isCorrect: false),
+      Opt(text: '2', isCorrect: false, isLocked: false),
+      Opt(text: 'hiii', isCorrect: false, isLocked: false),
+      Opt(text: 'byee', isCorrect: true, isLocked: false),
+      Opt(text: 'hiii', isCorrect: false, isLocked: false),
     ],
   ),
   Question(
     text: 'what is me 3 ? ', //Q3
     options: [
-      const Opt(
-        text: '3',
-        isCorrect: false,
-      ),
-      const Opt(text: 'hiii', isCorrect: false),
-      const Opt(text: 'byee', isCorrect: true),
-      const Opt(text: 'hiii', isCorrect: false),
+      Opt(text: '3', isCorrect: false, isLocked: false),
+      Opt(text: 'hiii', isCorrect: false, isLocked: false),
+      Opt(text: 'byee', isCorrect: true, isLocked: false),
+      Opt(text: 'hiii', isCorrect: false, isLocked: false),
     ],
   ),
   Question(
     text: 'what is me 4 ? ', //Q4
     options: [
-      const Opt(text: '4', isCorrect: false),
-      const Opt(text: 'hiii', isCorrect: false),
-      const Opt(text: 'byee', isCorrect: true),
-      const Opt(text: 'hiii', isCorrect: false),
+      Opt(text: '4', isCorrect: false, isLocked: false),
+      Opt(text: 'hiii', isCorrect: false, isLocked: false),
+      Opt(text: 'byee', isCorrect: true, isLocked: false),
+      Opt(text: 'hiii', isCorrect: false, isLocked: false),
     ],
   )
 ];
-
-
-
-// class opt{
-//   final String txt;
-
-
-// }

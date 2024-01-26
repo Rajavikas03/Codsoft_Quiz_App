@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_apk/Compelete.dart';
 import 'package:quiz_apk/model.dart';
-import 'package:quiz_apk/options.dart';
 
 bool isSelected1 = false;
 bool isSelected2 = false;
@@ -16,14 +15,12 @@ class quiz_main extends StatefulWidget {
 }
 
 class _quiz_mainState extends State<quiz_main> {
-  bool t = false;
+  final PageController _pageController = PageController();
+  late String isSelected;
   @override
   void initState() {
     super.initState();
-    isSelected1 = false;
-    isSelected2 = false;
-    isSelected3 = false;
-    isSelected4 = false;
+    // isSelected = ;
   }
 
   Widget build(BuildContext context) {
@@ -33,17 +30,17 @@ class _quiz_mainState extends State<quiz_main> {
         children: [
           const gradientcolor(),
           Expanded(
+            //   child:
+            // buildcolumb(),
             child: PageView.builder(
+              controller: _pageController,
               itemCount: questions.length,
               itemBuilder: (context, index) {
-                // int indexx = index;
                 final _question = questions[index];
                 var optt = questions[index].options;
-                // var  first_options = questions[0];
 
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  // crossAxisAlignment: ,
                   children: [
                     Container(
                         decoration: BoxDecoration(
@@ -65,59 +62,136 @@ class _quiz_mainState extends State<quiz_main> {
                             fontSize: 30, fontWeight: FontWeight.w500),
                       ),
                     ),
-                    // Options(
-                    //   option: 'Option A',
-                    //   isCorrect: false,
-                    // ),
-                    // Options(
-                    //   option: 'Option B',
-                    //   isCorrect: false,
-                    // ),
-                    // Options(
-                    //   option: 'Option C',
-                    //   isCorrect: false,
-                    // ),
-                    // Options(
-                    //   option: 'Option D',
-                    //   isCorrect: true,
-                    // ),
                     const SizedBox(
                       height: 100,
                     ),
-                    // for(){
-                    // Text(questions[index].options[2].text),};
                     Column(
                       children: [
-                        for (int i = 0; i < questions.length; i++)
-                          // Text(questions[index].options[i].text),
-                          Options(
-                            option: questions[index].options[i].text,
-                            isCorrect: questions[index].options[i].isCorrect,
+                        for (int i = 0;
+                            i < questions[index].options.length;
+                            i++)
+                          Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                height: 48,
+                                width: 240,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  border:
+                                      Border.all(width: 3, color: Colors.white),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 18),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            questions[index].options[i].text,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Radio(
+                                              activeColor: Colors.green,
+                                              value: questions[index]
+                                                  .options[i]
+                                                  .text
+                                                  .hashCode,
+                                              groupValue:
+                                                  questions[index].options[i],
+                                              onChanged: (val) {
+                                                // questions[index].options[i] = val!;
+                                                // questions[index]
+                                                //     .options[i]
+                                                //     .isLocked = true;
+                                                // setState(() {
+                                                //   print(
+                                                //       "${questions[index].options[i].isLocked}hiii");
+                                                //   questions[index]
+                                                //           .options[i]
+                                                //           .isLocked =
+                                                //       !questions[index]
+                                                //           .options[i]
+                                                //           .isLocked;
+                                                //   print(
+                                                //       '${questions[index].options[i].isLocked}bye');
+                                                // });
+                                              }),
+                                        ],
+                                      )),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
                           ),
+
+                        // Options(
+                        //   option: questions[index].options[i].text,
+                        //   isCorrect: questions[index].options[i].isCorrect,
+                        //   selected: questions[index].options[i].isLocked,
+                        // ),
                       ],
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        // if ((index + 1) % questions.length == 0) {
-                        //   Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => const CompeletePage(),
-                        //     ),
-                        //   );
-                        // } else {
-                        //   print("hiiii ${questions.length}"); // check//
-                        // }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.deepPurple[400],
-                          backgroundColor: Colors.white,
-                          padding: const EdgeInsets.fromLTRB(40, 16, 40, 16),
-                          elevation: 6),
-                      child: const Text('  Next  '),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (_pageController.page! <
+                                  questions.length - 1) {
+                                _pageController.previousPage(
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeInOut,
+                                );
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.deepPurple[400],
+                                backgroundColor: Colors.white,
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                                elevation: 6),
+                            child: const Icon(Icons.arrow_back_ios),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (_pageController.page! <
+                                  questions.length - 1) {
+                                try {
+                                  _pageController.nextPage(
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeInOut,
+                                  );
+                                } catch (StackTrace, Error) {
+                                  print(" $StackTrace $Error error!!!");
+                                }
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.deepPurple[400],
+                                backgroundColor: Colors.white,
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                                elevation: 6),
+                            child: const Icon(Icons.arrow_forward_ios),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -129,7 +203,7 @@ class _quiz_mainState extends State<quiz_main> {
                             ),
                           );
                         } else {
-                          print("hiiii ${questions.length}"); // check//
+                          print("hiiii ${questions.length}"); // check
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -137,7 +211,7 @@ class _quiz_mainState extends State<quiz_main> {
                           backgroundColor: Colors.white,
                           padding: const EdgeInsets.fromLTRB(40, 16, 40, 16),
                           elevation: 6),
-                      child: const Text('Submit'),
+                      child: const Text('  Submit  '),
                     ),
                   ],
                 );
@@ -148,11 +222,6 @@ class _quiz_mainState extends State<quiz_main> {
       ),
     );
   }
-
-//   colorfunction() {
-//     if(indexx)
-
-// }
 }
 
 class gradientcolor extends StatelessWidget {

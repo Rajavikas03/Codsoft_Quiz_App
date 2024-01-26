@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:quiz_apk/Compelete.dart';
 import 'package:quiz_apk/quiz_page.dart';
 
 void main() {
