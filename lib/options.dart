@@ -1,9 +1,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:quiz_apk/model.dart';
 
-List Ans = [];
-List Crt = [];
-List Wrg = [];
+
 
 // class Options extends StatefulWidget {
 //   final String option;

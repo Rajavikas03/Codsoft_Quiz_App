@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_apk/main.dart';
-import 'package:quiz_apk/options.dart';
+import 'package:quiz_apk/model.dart';
 import 'package:quiz_apk/quiz_page.dart';
 
 class CompeletePage extends StatefulWidget {
@@ -21,9 +21,9 @@ class CompeletePage extends StatefulWidget {
 class _CompeletePageState extends State<CompeletePage> {
   @override
   Widget build(BuildContext context) {
-    double ctans = Crt.length.toDouble();
+    double ctans = (crt / 4).toDouble();
     // double wrgans = Wrg.length.toDouble();
-    double tolans = Ans.length.toDouble();
+    double tolans = questions.length.toDouble();
     double pots = (((ctans) / tolans) * 100);
     return Scaffold(
         body: Stack(
@@ -39,9 +39,9 @@ class _CompeletePageState extends State<CompeletePage> {
                   IconButton(
                       onPressed: () {
                         setState(() {
-                          Crt.clear();
-                          Ans.clear();
-                          Wrg.clear();
+                          crt = 0;
+                          ansd = 0;
+                          wrg = 0;
                         });
 
                         Navigator.push(
@@ -85,9 +85,6 @@ class _CompeletePageState extends State<CompeletePage> {
                   border: Border.all(width: 2, color: Colors.black87)),
               child: Column(
                 children: [
-                  // SizedBox(
-                  //   height: 5,
-                  // ),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Row(
@@ -98,7 +95,7 @@ class _CompeletePageState extends State<CompeletePage> {
                           radius: 10,
                         ),
                         Text(
-                          ' Correct Answer: ${Crt.length}',
+                          ' Correct Answer: ${crt / 4}',
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ],
@@ -114,7 +111,7 @@ class _CompeletePageState extends State<CompeletePage> {
                           radius: 10,
                         ),
                         Text(
-                          ' Wrong Answer: ${Wrg.length}',
+                          ' Wrong Answer: ${wrg}',
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ],
@@ -130,7 +127,7 @@ class _CompeletePageState extends State<CompeletePage> {
                           radius: 10,
                         ),
                         Text(
-                          ' No.of Answered ques: ${Ans.length}',
+                          ' No.of Answered ques: ${questions.length}',
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ],

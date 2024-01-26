@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_apk/Compelete.dart';
+import 'package:quiz_apk/main.dart';
 import 'package:quiz_apk/model.dart';
 
-bool isSelected1 = false;
-bool isSelected2 = false;
-bool isSelected3 = false;
-bool isSelected4 = false;
+List c = [];
+List w = [];
+List a = [];
+int crt = 0;
+int wrg = 0;
+int ansd = 0;
 
 class quiz_main extends StatefulWidget {
   const quiz_main({super.key});
@@ -38,6 +41,7 @@ class _quiz_mainState extends State<quiz_main> {
               itemBuilder: (context, index) {
                 final _question = questions[index];
                 var optt = questions[index].options;
+                // isSelected = '';
 
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -102,20 +106,48 @@ class _quiz_mainState extends State<quiz_main> {
                                                   .options[i]
                                                   .text,
                                               groupValue: isSelected,
-                                              onChanged: (val) {
+                                              onChanged: (val) async {
                                                 setState(() {
+                                                  // isSelected = ' ';
                                                   isSelected = val.toString();
+                                                  questions[index]
+                                                      .options[i]
+                                                      .isLocked = true;
+                                                  if (i != 0) {
+                                                    questions[index]
+                                                        .options[0]
+                                                        .isLocked = false;
+                                                    print('0');
+                                                  }
+                                                  if (i != 1) {
+                                                    questions[index]
+                                                        .options[1]
+                                                        .isLocked = false;
+                                                    print('1');
+                                                  }
+                                                  if (i != 2) {
+                                                    questions[index]
+                                                        .options[2]
+                                                        .isLocked = false;
+                                                    print('2');
+                                                  }
+                                                  if (i != 3) {
+                                                    questions[index]
+                                                        .options[3]
+                                                        .isLocked = false;
+                                                    print('3');
+                                                  }
                                                 });
+                                                if (index <
+                                                    questions.length - 1) {
+                                                  try {
+                                                    // await pageFunctionfrwd();
+                                                  } catch (StackTrace, Error) {
+                                                    print(
+                                                        " $StackTrace $Error error!!!");
+                                                  }
+                                                }
                                               }),
-                                          // Radio(
-                                          //   value: "Yes",
-                                          //   groupValue: isSelected,
-                                          //   onChanged: (val) {
-                                          //     setState(() {
-                                          //       isSelected = val.toString();
-                                          //     });
-                                          //   },
-                                          // ),
                                         ],
                                       )),
                                 ),
@@ -125,12 +157,6 @@ class _quiz_mainState extends State<quiz_main> {
                               ),
                             ],
                           ),
-
-                        // Options(
-                        //   option: questions[index].options[i].text,
-                        //   isCorrect: questions[index].options[i].isCorrect,
-                        //   selected: questions[index].options[i].isLocked,
-                        // ),
                       ],
                     ),
                     Row(
@@ -139,9 +165,18 @@ class _quiz_mainState extends State<quiz_main> {
                         Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (_pageController.page! <
                                   questions.length - 1) {
+                                try {
+                                  await pageFunctionrev();
+                                  // _pageController.nextPage(
+                                  //   duration: const Duration(milliseconds: 300),
+                                  //   curve: Curves.easeInOut,
+                                  // );
+                                } catch (StackTrace, Error) {
+                                  print(" $StackTrace $Error error!!!");
+                                }
                                 _pageController.previousPage(
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.easeInOut,
@@ -160,14 +195,15 @@ class _quiz_mainState extends State<quiz_main> {
                         Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (_pageController.page! <
                                   questions.length - 1) {
                                 try {
-                                  _pageController.nextPage(
-                                    duration: const Duration(milliseconds: 300),
-                                    curve: Curves.easeInOut,
-                                  );
+                                  await pageFunctionfrwd();
+                                  // _pageController.nextPage(
+                                  //   duration: const Duration(milliseconds: 300),
+                                  //   curve: Curves.easeInOut,
+                                  // );
                                 } catch (StackTrace, Error) {
                                   print(" $StackTrace $Error error!!!");
                                 }
@@ -188,8 +224,11 @@ class _quiz_mainState extends State<quiz_main> {
                       height: 20,
                     ),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        await result();
+
                         if ((index + 1) % questions.length == 0) {
+                          // ignore: use_build_context_synchronously
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -215,6 +254,39 @@ class _quiz_mainState extends State<quiz_main> {
         ],
       ),
     );
+  }
+
+  pageFunctionfrwd() async {
+    _pageController.nextPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  pageFunctionrev() async {
+    _pageController.previousPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  Future<dynamic> result() async {
+    for (int j = 0; j < questions.length; j++) {
+      for (int k = 0; k < questions.length; k++) {
+        if (questions[j].options[k].isLocked ==
+            questions[j].options[k].isCorrect) {
+          crt++;
+          c.add(questions[j].options[k].isLocked);
+          print("$crt hii");
+        }
+        if (questions[j].options[k].isLocked !=
+            questions[j].options[k].isCorrect) {
+          wrg++;
+          w.add(questions[j].options[k].isLocked);
+          print(w[j]);
+        }
+      }
+    }
   }
 }
 
