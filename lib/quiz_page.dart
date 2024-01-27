@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_apk/Compelete.dart';
-import 'package:quiz_apk/main.dart';
 import 'package:quiz_apk/model.dart';
 
 List c = [];
 List w = [];
-List a = [];
-int crt = 0;
-int wrg = 0;
-int ansd = 0;
 
 class quiz_main extends StatefulWidget {
   const quiz_main({super.key});
@@ -27,121 +22,152 @@ class _quiz_mainState extends State<quiz_main> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Stack(
-        children: [
-          const gradientcolor(),
-          Expanded(
-            //   child:
-            // buildcolumb(),
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: questions.length,
-              itemBuilder: (context, index) {
-                final _question = questions[index];
-                var optt = questions[index].options;
-                // isSelected = '';
+    var height = MediaQuery.sizeOf(context).height;
+    var width = MediaQuery.sizeOf(context).width;
+    return SafeArea(
+      child: Scaffold(
+        // appBar: AppBar(
+        //   title: const Text(
+        //     'Quiz App',
+        //     style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+        //   ),
+        //   centerTitle: true,
+        // ),
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            const gradientcolor1(),
+            Expanded(
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: questions.length,
+                itemBuilder: (context, index) {
+                  final _question = questions[index];
+                  final optt = _question.options;
 
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(width: 2, color: Colors.white)),
-                        child: Text(
-                          " Question ${index + 1}/${questions.length}",
-                          style: const TextStyle(
-                              fontSize: 50, fontWeight: FontWeight.bold),
-                        )),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      height: 80,
-                      child: Text(
-                        _question.text,
-                        style: const TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.w500),
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border:
+                                  Border.all(width: 2, color: Colors.white)),
+                          child: Text(
+                            " Question ${index + 1}/${questions.length} ",
+                            style: const TextStyle(
+                                fontSize: 50, fontWeight: FontWeight.bold),
+                            softWrap: true,
+                          )),
+                      const SizedBox(
+                        height: 20,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 100,
-                    ),
-                    Column(
-                      children: [
-                        for (int i = 0;
-                            i < questions[index].options.length;
-                            i++)
-                          Column(
-                            children: [
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                height: 48,
-                                width: 240,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border:
-                                      Border.all(width: 3, color: Colors.white),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Center(
+                          child: Text(
+                            _question.text,
+                            style: const TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Column(
+                        children: [
+                          for (int i = 0; i < optt.length; i++)
+                            Column(
+                              children: [
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                child: Center(
-                                  child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 18),
+                                GestureDetector(
+                                  // onTap function
+                                  onTap: () async {
+                                    setState(() {
+                                      isSelected = optt[i].text;
+                                      optt[i].isLocked = true;
+                                      if (i != 0) {
+                                        optt[0].isLocked = false;
+                                        print('0');
+                                      }
+                                      if (i != 1) {
+                                        optt[1].isLocked = false;
+                                        print('1');
+                                      }
+                                      if (i != 2) {
+                                        optt[2].isLocked = false;
+                                        print('2');
+                                      }
+                                      if (i != 3) {
+                                        optt[3].isLocked = false;
+                                        print('3');
+                                      }
+                                    });
+                                    if (index < questions.length - 1) {
+                                      try {
+                                        await pageFunctionfrwd();
+                                      } catch (StackTrace, Error) {
+                                        print(" $StackTrace $Error error!!!");
+                                      }
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 48,
+                                    width: width * 0.69,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                          width: 3, color: Colors.white),
+                                    ),
+                                    child: Center(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            questions[index].options[i].text,
+                                            optt[i].text,
                                             style: const TextStyle(
-                                                fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            // maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: true,
                                           ),
                                           Radio(
                                               activeColor: Colors.green,
-                                              value: questions[index]
-                                                  .options[i]
-                                                  .text,
+                                              value: optt[i].text,
                                               groupValue: isSelected,
                                               onChanged: (val) async {
                                                 setState(() {
-                                                  // isSelected = ' ';
                                                   isSelected = val.toString();
-                                                  questions[index]
-                                                      .options[i]
-                                                      .isLocked = true;
+                                                  optt[i].isLocked = true;
                                                   if (i != 0) {
-                                                    questions[index]
-                                                        .options[0]
-                                                        .isLocked = false;
+                                                    optt[0].isLocked = false;
                                                     print('0');
                                                   }
                                                   if (i != 1) {
-                                                    questions[index]
-                                                        .options[1]
-                                                        .isLocked = false;
+                                                    optt[1].isLocked = false;
                                                     print('1');
                                                   }
                                                   if (i != 2) {
-                                                    questions[index]
-                                                        .options[2]
-                                                        .isLocked = false;
+                                                    optt[2].isLocked = false;
                                                     print('2');
                                                   }
                                                   if (i != 3) {
-                                                    questions[index]
-                                                        .options[3]
-                                                        .isLocked = false;
+                                                    optt[3].isLocked = false;
                                                     print('3');
                                                   }
                                                 });
                                                 if (index <
                                                     questions.length - 1) {
                                                   try {
-                                                    // await pageFunctionfrwd();
+                                                    await pageFunctionfrwd();
                                                   } catch (StackTrace, Error) {
                                                     print(
                                                         " $StackTrace $Error error!!!");
@@ -149,141 +175,134 @@ class _quiz_mainState extends State<quiz_main> {
                                                 }
                                               }),
                                         ],
-                                      )),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              if (_pageController.page! <
-                                  questions.length - 1) {
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: ElevatedButton(
+                              onPressed: () async {
                                 try {
                                   await pageFunctionrev();
-                                  // _pageController.nextPage(
-                                  //   duration: const Duration(milliseconds: 300),
-                                  //   curve: Curves.easeInOut,
-                                  // );
                                 } catch (StackTrace, Error) {
                                   print(" $StackTrace $Error error!!!");
                                 }
-                                _pageController.previousPage(
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeInOut,
-                                );
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.deepPurple[400],
-                                backgroundColor: Colors.white,
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                                elevation: 6),
-                            child: const Icon(Icons.arrow_back_ios),
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.deepPurple[400],
+                                  backgroundColor: Colors.white,
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                                  elevation: 6),
+                              child: const Icon(Icons.arrow_back_ios),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              if (_pageController.page! <
-                                  questions.length - 1) {
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: ElevatedButton(
+                              onPressed: () async {
                                 try {
                                   await pageFunctionfrwd();
-                                  // _pageController.nextPage(
-                                  //   duration: const Duration(milliseconds: 300),
-                                  //   curve: Curves.easeInOut,
-                                  // );
                                 } catch (StackTrace, Error) {
                                   print(" $StackTrace $Error error!!!");
                                 }
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.deepPurple[400],
-                                backgroundColor: Colors.white,
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                                elevation: 6),
-                            child: const Icon(Icons.arrow_forward_ios),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        await result();
-
-                        if ((index + 1) % questions.length == 0) {
-                          // ignore: use_build_context_synchronously
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const CompeletePage(),
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.deepPurple[400],
+                                  backgroundColor: Colors.white,
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                                  elevation: 6),
+                              child: const Icon(Icons.arrow_forward_ios),
                             ),
-                          );
-                        } else {
-                          print("hiiii ${questions.length}"); // check
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.deepPurple[400],
-                          backgroundColor: Colors.white,
-                          padding: const EdgeInsets.fromLTRB(40, 16, 40, 16),
-                          elevation: 6),
-                      child: const Text('  Submit  '),
-                    ),
-                  ],
-                );
-              },
+                          ),
+                        ],
+                      ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          // Result Future Function
+                          await result();
+                          if ((index + 1) % questions.length == 0) {
+                            // ignore: use_build_context_synchronously
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const CompeletePage(),
+                              ),
+                            );
+                          } else {
+                            print("hiiii ${questions.length}"); // check
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.deepPurple[400],
+                            backgroundColor: Colors.white,
+                            padding: const EdgeInsets.fromLTRB(40, 16, 40, 16),
+                            elevation: 6),
+                        child: const Text('  Submit  '),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
+//  Page veiw Forward move
   pageFunctionfrwd() async {
-    _pageController.nextPage(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
+    if (_pageController.page! < questions.length - 1) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
+// Page veiw backward move
   pageFunctionrev() async {
-    _pageController.previousPage(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
+    if (_pageController.page! <= questions.length - 1) {
+      _pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   Future<dynamic> result() async {
     for (int j = 0; j < questions.length; j++) {
-      for (int k = 0; k < questions.length; k++) {
-        if (questions[j].options[k].isLocked ==
-            questions[j].options[k].isCorrect) {
-          crt++;
+      for (int k = 0; k < questions[j].options.length; k++) {
+        // Correct Answer Condition
+        if (questions[j].options[k].isLocked == true &&
+            questions[j].options[k].isCorrect == true) {
           c.add(questions[j].options[k].isLocked);
-          print("$crt hii");
+          print('$c hii'); // check
         }
-        if (questions[j].options[k].isLocked !=
-            questions[j].options[k].isCorrect) {
-          wrg++;
+        //  Wrong Anwser Condition
+        if (questions[j].options[k].isLocked != true &&
+            questions[j].options[k].isCorrect == true) {
           w.add(questions[j].options[k].isLocked);
-          print(w[j]);
+          print(w); // check
         }
       }
     }
@@ -303,6 +322,24 @@ class gradientcolor extends StatelessWidget {
             colors: [Colors.deepPurple, Colors.purple],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter),
+      ),
+    );
+  }
+}
+
+class gradientcolor1 extends StatelessWidget {
+  const gradientcolor1({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(colors: [
+          Colors.purple,
+          Colors.blue,
+        ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
       ),
     );
   }

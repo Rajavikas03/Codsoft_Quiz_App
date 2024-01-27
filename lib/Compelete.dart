@@ -4,14 +4,8 @@ import 'package:quiz_apk/model.dart';
 import 'package:quiz_apk/quiz_page.dart';
 
 class CompeletePage extends StatefulWidget {
-  // int answeredques;
-  // int correctans;
-  // int Wrongans;
   const CompeletePage({
     super.key,
-    //  required this.correctans
-    //  required this.Wrongans
-    // required this.answeredques,
   });
 
   @override
@@ -21,14 +15,14 @@ class CompeletePage extends StatefulWidget {
 class _CompeletePageState extends State<CompeletePage> {
   @override
   Widget build(BuildContext context) {
-    double ctans = (crt / 4).toDouble();
-    // double wrgans = Wrg.length.toDouble();
+    double ctans = (c.length).toDouble();
+    double wrgans = w.length.toDouble();
     double tolans = questions.length.toDouble();
     double pots = (((ctans) / tolans) * 100);
     return Scaffold(
         body: Stack(
       children: [
-        const gradientcolor(),
+        const gradientcolor1(),
         Column(
           children: [
             SizedBox(
@@ -37,24 +31,25 @@ class _CompeletePageState extends State<CompeletePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   IconButton(
-                      onPressed: () {
-                        setState(() {
-                          crt = 0;
-                          ansd = 0;
-                          wrg = 0;
-                        });
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MyHomePage()),
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.close,
-                        color: Colors.red,
-                        size: 40,
-                      )),
+                    onPressed: () {
+                      setState(() {
+                        c.clear();
+                        w.clear();
+                      });
+                      // Nagigate to MainPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyHomePage(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.close,
+                      color: Colors.red,
+                      size: 40,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -95,7 +90,7 @@ class _CompeletePageState extends State<CompeletePage> {
                           radius: 10,
                         ),
                         Text(
-                          ' Correct Answer: ${crt / 4}',
+                          ' Correct Answer: ${c.length}',
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ],
@@ -111,7 +106,7 @@ class _CompeletePageState extends State<CompeletePage> {
                           radius: 10,
                         ),
                         Text(
-                          ' Wrong Answer: ${wrg}',
+                          ' Wrong Answer: ${w.length}',
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ],

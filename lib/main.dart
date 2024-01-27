@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_apk/quiz_page.dart';
 
-Map<String, dynamic> Ans = {};
-Map<String, dynamic> Crt = {};
-Map<String, dynamic> Wrg = {};
-
 void main() {
   runApp(const MyApp());
 }
@@ -35,45 +31,53 @@ class _MyHomePageState extends State<MyHomePage> {
     var width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: Colors.deepPurple[200],
-      body: Center(
-          child: Column(
+      body: Stack(
         children: [
-          SizedBox(
-            height: height * 0.1,
-          ),
-          Image.asset('lib/assets/innovation.png'),
-          SizedBox(
-            height: height * 0.01,
-          ),
-          Text(
-            "QUIZ",
-            style: TextStyle(
-                color: Colors.deepPurple[400],
-                fontSize: 100,
-                fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: height * 0.07,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const quiz_main()),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.deepPurple[400],
-                padding: const EdgeInsets.fromLTRB(40, 16, 40, 16),
-                elevation: 6),
-            child: const Text(
-              '  START  ',
-              style: TextStyle(fontWeight: FontWeight.bold),
+          const gradientcolor1(),
+          Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: height * 0.1,
+                ),
+                Image.asset('lib/assets/innovation.png'),
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                const Text(
+                  "QUIZ",
+                  style: TextStyle(
+                      color: Colors.white30,
+                      fontSize: 100,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: height * 0.07,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const quiz_main()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.deepPurple[400],
+                      backgroundColor: Colors.white,
+                      padding: const EdgeInsets.fromLTRB(40, 16, 40, 16),
+                      elevation: 6),
+                  child: const Text(
+                    '  START  ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.blue),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
-      )),
+      ),
     );
   }
 }
