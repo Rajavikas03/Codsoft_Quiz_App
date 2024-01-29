@@ -21,11 +21,6 @@ class _CompeletePageState extends State<CompeletePage> {
     double pots = (((ctans) / tolans) * 100);
     return PopScope(
       canPop: false,
-      // onPopInvoked: (didPop) => {
-      //   c.clear(),
-      //   w.clear()
-
-      // },
       child: Scaffold(
           body: Container(
         decoration: gradientcolor1(),

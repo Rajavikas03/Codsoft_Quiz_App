@@ -280,13 +280,13 @@ class _quiz_mainState extends State<quiz_main> {
         // Correct Answer Condition
         if (questions[j].options[k].isLocked == true &&
             questions[j].options[k].isCorrect == true) {
-          c.add(questions[j].options[k].isLocked);
+          c.add(questions[j].options[k].text);
           print('$c hii'); // check
         }
         //  Wrong Anwser Condition
         if (questions[j].options[k].isLocked != true &&
             questions[j].options[k].isCorrect == true) {
-          w.add(questions[j].options[k].isLocked);
+          w.add(questions[j].options[k].text);
           print(w); // check
         }
       }
@@ -312,6 +312,7 @@ class gradientcolor extends StatelessWidget {
   }
 }
 
+// gradient Linear color
 Decoration gradientcolor1() {
   return const BoxDecoration(
       gradient: LinearGradient(colors: [
