@@ -16,14 +16,20 @@ class _CompeletePageState extends State<CompeletePage> {
   @override
   Widget build(BuildContext context) {
     double ctans = (c.length).toDouble();
-    double wrgans = w.length.toDouble();
+    // double wrgans = w.length.toDouble();
     double tolans = questions.length.toDouble();
     double pots = (((ctans) / tolans) * 100);
-    return Scaffold(
-        body: Stack(
-      children: [
-        const gradientcolor1(),
-        Column(
+    return PopScope(
+      canPop: false,
+      // onPopInvoked: (didPop) => {
+      //   c.clear(),
+      //   w.clear()
+
+      // },
+      child: Scaffold(
+          body: Container(
+        decoration: gradientcolor1(),
+        child: Column(
           children: [
             SizedBox(
               height: 150,
@@ -37,7 +43,7 @@ class _CompeletePageState extends State<CompeletePage> {
                         w.clear();
                       });
                       // Nagigate to MainPage
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const MyHomePage(),
@@ -132,8 +138,8 @@ class _CompeletePageState extends State<CompeletePage> {
               ),
             )
           ],
-        )
-      ],
-    ));
+        ),
+      )),
+    );
   }
 }
