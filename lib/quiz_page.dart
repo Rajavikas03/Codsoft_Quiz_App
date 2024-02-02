@@ -4,6 +4,7 @@ import 'package:quiz_apk/model.dart';
 
 List c = [];
 List w = [];
+
 List<String> selectedOptions = [];
 
 class quiz_main extends StatefulWidget {
@@ -294,23 +295,23 @@ class _quiz_mainState extends State<quiz_main> {
   }
 }
 
-class gradientcolor extends StatelessWidget {
-  const gradientcolor({
-    super.key,
-  });
+// class gradientcolor extends StatelessWidget {
+//   const gradientcolor({
+//     super.key,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-            colors: [Colors.deepPurple, Colors.purple],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: const BoxDecoration(
+//         gradient: LinearGradient(
+//             colors: [Colors.deepPurple, Colors.purple],
+//             begin: Alignment.topCenter,
+//             end: Alignment.bottomCenter),
+//       ),
+//     );
+//   }
+// }
 
 // gradient Linear color
 Decoration gradientcolor1() {
